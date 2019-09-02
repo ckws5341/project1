@@ -69,6 +69,8 @@ void AUserCharacter::PostInitializeComponents()
 			GidAnim->JumpToAttackMontageSection(CurrentCombo);
 		}
 	});
+	GidAnim->OnAttackHitCheck.AddUObject(this, &AUserCharacter::AttackCheck);
+	
 }
 // Called every frame
 void AUserCharacter::Tick(float DeltaTime)
@@ -76,7 +78,27 @@ void AUserCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+void AUserCharacter::AttackCheck()
+{
+	//AGideonProjectile * pt = Cast<AGideonProjectile>(UGameInstance::);
+	FHitResult HitResult;
+	FCollisionQueryParams Params(NAME_None, false, this);
+	bool bResult = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		GetActorLocation() - GetActorForwardVector() * 10.f,
+		GetActorLocation() + GetActorForwardVector() * 10.f,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel2,
+		FCollisionShape::MakeSphere(50.f),
+		Params);
 
+	if (bResult)
+	{
+		if (HitResult.Actor.IsValid())
+			UE_LOG(project_Taesung, Warning, TEXT("Hit Actor!"));
+	}
+
+}
 // Called to bind functionality to input
 void AUserCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

@@ -37,7 +37,7 @@ private:
 	void Turn(float NewAxisValue);
 	void Scale(float NewAxisValue);
 	void Attack();
-
+	void AttackCheck();
 	UFUNCTION() void OnAttackMontageEnded(UAnimMontage* Montage, bool bIntrerrupted);
 
 	void AttackStartComboState();

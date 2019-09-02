@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "project_Taesung.h"
 #include "GameFramework/Character.h"
 #include "BasicArmy_Lv1.generated.h"
 
@@ -14,7 +14,7 @@ class PROJECT_TAESUNG_API ABasicArmy_Lv1 : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABasicArmy_Lv1();
-
+	UPROPERTY(VisibleAnywhere, Category = Camera) USpringArmComponent* SpringArm;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
